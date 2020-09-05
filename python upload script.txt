@@ -1,0 +1,13 @@
+import requests
+
+url = "http://127.0.0.1:8000/faceapi/"
+
+payload = {}
+files = [
+  ('image', open('/C:/Users/Glen/Pictures/VJ174D.jpg','rb'))
+]
+headers= {}
+
+response = requests.request("POST", url, headers=headers, data = payload, files = files)
+
+print(response.text.encode('utf8'))
