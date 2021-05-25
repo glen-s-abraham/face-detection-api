@@ -16,18 +16,18 @@ class FaceApi(APIView):
 		file_serializer=ImageUploadSerializer(data=request.data)
 		if file_serializer.is_valid():
 			file_serializer.save();
-			res="unknown entity"
+			
 			unknown_image=file_serializer.data["image"]
-			print(unknown_image)
-			known_objects=models.KnowledgeDatabase.objects.all()
-			for known_person in known_objects:
-				print(known_person.name)
-				ret=fr.recognize(str(known_person.image),str(unknown_image))
-				print(ret)
-				if ret:
-					res=known_person.name + ",knwon entity"
+			email=file_serializer.data["email"]
+			known_person=models.KnowledgeDatabase.objects.get(email=email)
+			res={"person":known_person.name ,"status":"unknwon entity"}
+			print(known_person.name)
+			ret=fr.recognize(str(known_person.image),str(unknown_image))
+			print(ret)
+			if ret:
+				res={"person":known_person.name ,"status":"knwon entity"}
 					
-					break
+				
 			
 
 			return Response(res, status=status.HTTP_201_CREATED)

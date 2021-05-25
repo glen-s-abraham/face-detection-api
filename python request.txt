@@ -1,0 +1,13 @@
+import requests
+
+url = "http://cf9d31452631.ngrok.io/faceapi/"
+
+payload={'email': 'modi@fr.com'}
+files=[
+  ('image',('my-passport-photo.jpg',open('/E:/time pass/my-passport-photo.jpg','rb'),'image/jpeg'))
+]
+headers = {}
+
+response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+print(response.text)

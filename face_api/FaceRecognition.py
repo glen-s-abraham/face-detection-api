@@ -1,12 +1,18 @@
 import face_recognition
 import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 def recognize(known_file,unknown_file):
 	"""Face recognizer"""
 
 	#define full path
-	known_path='/vagrant/media/'+known_file
-	unknown_path='/vagrant'+unknown_file
+	
+	known_path=os.path.join(BASE_DIR,'media',known_file)
+
+	unknown_path=str(BASE_DIR)+str(unknown_file)
+	
 	
 	if os.path.exists(known_path) and os.path.exists(unknown_path):
 	
@@ -21,7 +27,7 @@ def recognize(known_file,unknown_file):
 
 		#compare the two encodings
 		result=face_recognition.compare_faces([knwon_encodings],unknwon_encodings)
-
+		
 		return result[0]
 	else:
 		return False	
